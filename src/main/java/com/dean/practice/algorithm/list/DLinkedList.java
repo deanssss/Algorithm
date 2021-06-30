@@ -30,6 +30,35 @@ public class DLinkedList<T> {
         return p.data;
     }
 
+    public void reverse() {
+        if (head == null || head.next == null)
+            return;
+
+        Node<T> p1, p2, p3;
+
+        p1 = head;
+        p2 = head.next;
+        p3 = null;
+
+        while (p2 != null) {
+            p1.next = p3;
+            p3 = p1;
+            p1 = p2;
+            p2 = p2.next;
+        }
+        p1.next = p3;
+        head = p1;
+    }
+
+    public void print() {
+        Node<T> p = head;
+        while (p != null) {
+            System.out.print("" + p.data + "->");
+            p = p.next;
+        }
+        System.out.println("null");
+    }
+
     static class Node<T> {
         private T data;
         private Node<T> next;
@@ -44,12 +73,11 @@ public class DLinkedList<T> {
     }
 
     public static void main(String[] args) {
-        DLinkedList<Integer> list = new DLinkedList<>();
+        DLinkedList list = new DLinkedList();
         list.add(1);
         list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        System.out.println(list.get(10));
+        list.print();
+        list.reverse();
+        list.print();
     }
 }
