@@ -1,10 +1,21 @@
 package com.dean.practice.algorithm.list
 
 import com.dean.practice.algorithm.list.base.ListNode
-import java.lang.StringBuilder
 
 object ListUtil {
     fun buildFromValues(vararg values: Int): ListNode? {
+        var head: ListNode? = null
+        var pre: ListNode? = null
+        for (i in values.indices) {
+            val newNode = ListNode(values[i])
+            if (pre != null) pre.next = newNode
+            pre = newNode
+            if (i == 0) head = newNode
+        }
+        return head
+    }
+
+    fun buildFromValues(values: List<Int>): ListNode? {
         var head: ListNode? = null
         var pre: ListNode? = null
         for (i in values.indices) {

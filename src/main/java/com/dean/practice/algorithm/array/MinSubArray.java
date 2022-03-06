@@ -1,6 +1,6 @@
 package com.dean.practice.algorithm.array;
 
-import javafx.util.Pair;
+import kotlin.Pair;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -22,8 +22,8 @@ public class MinSubArray {
         datas.add(testCase(11, 1,1,1,1,1,1,1,1));
 
         for (Pair<Integer, int[]> p : datas) {
-            System.out.println("target=" + p.getKey() + " nums=" + Arrays.toString(p.getValue()));
-            System.out.println(minSubArrayLen(p.getKey(), p.getValue()));
+            System.out.println("target=" + p.getFirst() + " nums=" + Arrays.toString(p.getSecond()));
+            System.out.println(minSubArrayLen(p.getFirst(), p.getSecond()));
         }
     }
 
