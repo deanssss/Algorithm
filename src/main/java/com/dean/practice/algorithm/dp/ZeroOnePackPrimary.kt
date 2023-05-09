@@ -5,6 +5,7 @@ fun main() {
     ZeroOnePackPrimary.knapsack(weight, 10)
     ZeroOnePackPrimary.knapsack2(weight, 10)
     ZeroOnePackPrimary.knapsack3(weight, 10)
+    ZeroOnePackPrimary.knapsackWithTrace(weight, 10)
 }
 
 object ZeroOnePackPrimary {
@@ -69,5 +70,38 @@ object ZeroOnePackPrimary {
             dp[i] = newList
         }
         println(dp[weight.size - 1]!!.maxOrNull())
+    }
+
+    fun knapsackWithTrace(weight: List<Int>, maxW: Int) {
+        // dp数组的值表示 在处理第i个物品时，背包内容物质量为j的情况是否可能存在
+        val dp = Array(weight.size) { IntArray(maxW + 1) }
+        // 处理第0行
+        dp[0][0] = 1 // 不装
+        if (weight[0] < maxW) {
+            dp[0][weight[0]] = 1 // 装
+        }
+
+        // 处理剩下的行
+        for (i in 1 until weight.size) {
+            // 不装
+            for (j in 0..maxW) {
+                if (dp[i - 1][j] == 1) dp[i][j] = dp[i - 1][j]
+            }
+            // 装
+            for (j in 0..(maxW - weight[i])) {
+                if (dp[i - 1][j] == 1) dp[i][j + weight[i]] = 1
+            }
+        }
+
+        val realMax = dp.last().indexOfLast { it == 1 }
+        print("最多能装：$realMax\n装法：")
+        var consumed = realMax
+        for (i in weight.size - 1 downTo 1) {
+            if (consumed - weight[i] >= 0 && dp[i - 1][consumed - weight[i]] == 1) {
+                print("${weight[i]}, ")
+                consumed -= weight[i]
+            }
+        }
+        if (consumed != 0) println(weight[0])
     }
 }
